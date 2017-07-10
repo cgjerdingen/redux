@@ -2,6 +2,7 @@
  * Created by Jaime on 7/8/2017.
  */
 import C from '../constants'
+import { combineReducers } from 'redux'
 
 export const goal = (state=10, action) =>
     (action.type === C.SET_GOAL) ?
@@ -51,11 +52,11 @@ export const fetching = (state=false, action) => {
                 case C.FETCH_RESORT_NAMES :
                     return true
                 case C.CANCEL_FETCHING :
-                    return false //done fetching
+                    return false
                 case C.CHANGE_SUGGESTIONS :
                     return false
                 default :
-                    state
+                    return state
     }
 }
 
@@ -66,25 +67,28 @@ export const suggestions = (state=[], action) => {
         case C.CHANGE_SUGGESTIONS :
             return action.payload
         default :
-            state
+            return state
     }
 }
 
-/*
-export const goal = (state=10, action) => {
-    if (action.type === C.SET_GOAL){
-        return parseInt(action.payload)
-    } else {
-        return state
-    }
-}
 
-export const skiDay = (state=null, action) => {
-    if (action.type === C.ADD_DAY){
-        return action.payload
-    } else {
-        return state
-    }
-}
 
-*/
+/*const resortNames = combineReducers({
+    fetch, suggestions
+})
+const singleReducer = combineReducers({
+    allSkiDays,
+    goal,
+    errors,
+    resortNames
+})*/
+
+export default combineReducers({
+    allSkiDays,
+    goal,
+    errors,
+    resortNames : combineReducers({
+        fetching,
+        suggestions
+    })
+})
