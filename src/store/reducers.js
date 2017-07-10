@@ -29,6 +29,23 @@ export const errors = (state=null, action) => {
     }
 }
 
+export const allSkiDays = (state=[], action) => {
+    switch(action.type) {
+        case C.ADD_DAY :
+            const hasDayAlready = state.some(skiDay => skiDay.date === action.payload.date)
+            return (hasDayAlready) ?
+                state :
+                [
+                ...state,
+                skiDay(null, action)
+            ]
+        case C.REMOVE_DAY :
+            return state.filter(skiDay => skiDay.date !== action.payload)
+        default:
+            return state
+    }
+}
+
 /*
 export const goal = (state=10, action) => {
     if (action.type === C.SET_GOAL){
