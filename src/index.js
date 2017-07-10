@@ -1,4 +1,42 @@
 import C from './constants'
+import { errors } from './store/reducers'
+
+const state = [
+    "user not authorized",
+    "server feed not found"
+]
+
+const  action = {
+    type: C.ADD_ERROR,
+    payload: "cannot connect to server"
+}
+
+const  nextState = errors(state, action)
+
+console.log(`
+
+    initial state: ${state}
+    action: ${JSON.stringify(action)}
+    new state: ${JSON.stringify(nextState)}    
+    
+`)
+
+const  actionClear = {
+    type: C.CLEAR_ERROR,
+    payload: 0
+}
+const  nextStateClear = errors(state, actionClear)
+
+console.log(`
+
+    initial state: ${state}
+    action: ${JSON.stringify(actionClear)}
+    new state: ${JSON.stringify(nextStateClear)}    
+    
+`)
+
+
+/* ------ Lesson 2-3 ------
 import { skiDay } from './store/reducers'
 
 const state = null
@@ -21,7 +59,7 @@ console.log(`
     new state: ${JSON.stringify(nextState)}    
     
 `)
-
+*/
 /*  ------ Lesson 2-2 ------
  import { goal } from './store/reducers'
 
