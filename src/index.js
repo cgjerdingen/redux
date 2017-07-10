@@ -1,5 +1,34 @@
 import C from './constants'
-import { allSkiDays } from './store/reducers'
+import expect from 'expect'
+import { allSkiDays, suggestions, fetching } from './store/reducers'
+
+const action = {
+    type: C.CHANGE_SUGGESTIONS,
+    payload : ["Heavenly", "Sonohara"]
+}
+
+const state = {
+    fetching: true,
+    suggestions: []
+}
+const expectedState = {
+    fetching: false,
+    suggestions: ["Heavenly", "Sonohara"]
+}
+
+const actualState = {
+    fetching: fetching(state.fetching, action),
+    suggestions: suggestions(state.suggestions, action)
+}
+
+expect(actualState.suggestions).toEqual(expectedState.suggestions)
+expect(actualState.fetching).toEqual(expectedState.fetching)
+
+console.log(`
+    Challenge D: FETCH_RESORT_NAMES PASSED!!
+`)
+
+/* ------ Lesson 2-5 ------
 
 const state = [
     {
@@ -30,7 +59,7 @@ console.log(`
     new state: ${JSON.stringify(nextState)}    
     
 `)
-
+*/
 
 /* ------ Lesson 2-4 ------
 
