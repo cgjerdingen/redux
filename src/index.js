@@ -1,208 +1,86 @@
 import C from './constants'
-// import expect from 'expect'
 import appReducer from './store/reducers'
-import initialState from './initialState.json'
+// import initialState from './initialState.json'
+import { createStore } from 'redux'
 
+const initialState = (localStorage['redux-store']) ?
+    JSON.parse(localStorage['redux-store']) :
+    {}
+
+const store = createStore(appReducer, initialState)
+
+window.store = store
+
+store.subscribe(() => console.log(store.getState()))
+
+store.subscribe(() => {
+
+    const state = JSON.stringify(store.getState())
+    localStorage['redux-store'] = state
+})
+//console.log('initial state', store.getState())
+
+store.dispatch({
+	type: C.ADD_DAY,
+	payload: {
+		"resort": "Mt Shasta",
+		"date": "2016-10-28",
+		"powder": false,
+		"backcountry": true
+	}
+})
+
+store.dispatch({
+        type: C.SET_GOAL,
+        payload: 2
+    }
+)
+
+//console.log('next state', store.getState())
+
+/*
 let state = initialState
 
 console.log(`
-    Initial State
-    +++++++++++++
-    
-    goal: ${state.goal}
-    resorts: ${JSON.stringify(state.allSkiDays)}
-    fetching: ${state.resortNames.fetching}
-    suggestions: ${state.resortNames.suggestions}
+
+	Initial state
+	=============
+	goal: ${state.goal}
+	resorts: ${JSON.stringify(state.allSkiDays)}
+	fetching: ${state.resortNames.fetching}
+	suggestions: ${state.resortNames.suggestions}
+
 `)
 
 state = appReducer(state, {
-    type: C.SET_GOAL,
-    payload: 2
+	type: C.SET_GOAL,
+	payload: 2
 })
 
 state = appReducer(state, {
-    type: C.ADD_DAY,
-    payload: {
-        "resort": "Mt Shasta",
-        "date": "2016-10-28",
-        "powder": false,
-        "backcountry": true
-    }
+	type: C.ADD_DAY,
+	payload: {
+		"resort": "Mt Shasta",
+		"date": "2016-10-28",
+		"powder": false,
+		"backcountry": true
+	}
 })
 
 state = appReducer(state, {
-    type: C.CHANGE_SUGGESTIONS,
-    payload: ["Mt Tallac", "Mt Hood", "Mt Shasta"]
+	type: C.CHANGE_SUGGESTIONS,
+	payload: ["Mt Tallac", "Mt Hood", "Mt Shasta"]
 })
 
 console.log(`
-    Next State
-    +++++++++++++
-    
-    goal: ${state.goal}
-    resorts: ${JSON.stringify(state.allSkiDays)}
-    fetching: ${state.resortNames.fetching}
-    suggestions: ${state.resortNames.suggestions}
-`)
 
+	Next state
+	=============
+	goal: ${state.goal}
+	resorts: ${JSON.stringify(state.allSkiDays)}
+	fetching: ${state.resortNames.fetching}
+	suggestions: ${state.resortNames.suggestions}
 
-//
-// const action = {
-//     type: C.CHANGE_SUGGESTIONS,
-//     payload : ["Heavenly", "Sonohara"]
-// }
-//
-// const state = {
-//     fetching: true,
-//     suggestions: []
-// }
-// const expectedState = {
-//     fetching: false,
-//     suggestions: ["Heavenly", "Sonohara"]
-// }
-//
-// const actualState = {
-//     fetching: fetching(state.fetching, action),
-//     suggestions: suggestions(state.suggestions, action)
-// }
-//
-// expect(actualState.suggestions).toEqual(expectedState.suggestions)
-// expect(actualState.fetching).toEqual(expectedState.fetching)
-//
-// console.log(`
-//     Challenge D: FETCH_RESORT_NAMES PASSED!!
-// `)
-
-/* ------ Lesson 2-5 ------
-
-const state = [
-    {
-        "resort": "Kirkwood",
-        "date": "2016-12-15",
-        "powder": true,
-        "backcountry": false
-    },
-    {
-        "resort": "Boreal",
-        "date": "2016-12-16",
-        "powder": false,
-        "backcountry": false
-    }
-]
-
-const  action = {
-    type: C.REMOVE_DAY,
-    payload: "2016-12-15"
-}
-
-const  nextState = allSkiDays(state, action)
-
-console.log(`
-
-    initial state: ${JSON.stringify(state)}
-    action: ${JSON.stringify(action)}
-    new state: ${JSON.stringify(nextState)}    
-    
 `)
 */
 
-/* ------ Lesson 2-4 ------
-
-import { errors } from './store/reducers'
-
-
-const state = [
-    "user not authorized",
-    "server feed not found"
-]
-
-const  action = {
-    type: C.ADD_ERROR,
-    payload: "cannot connect to server"
-}
-
-const  nextState = errors(state, action)
-
-console.log(`
-
-    initial state: ${state}
-    action: ${JSON.stringify(action)}
-    new state: ${JSON.stringify(nextState)}    
-    
-`)
-
-const  actionClear = {
-    type: C.CLEAR_ERROR,
-    payload: 0
-}
-const  nextStateClear = errors(state, actionClear)
-
-console.log(`
-
-    initial state: ${state}
-    action: ${JSON.stringify(actionClear)}
-    new state: ${JSON.stringify(nextStateClear)}    
-    
-`)
- */
-
-/* ------ Lesson 2-3 ------
-import { skiDay } from './store/reducers'
-
-const state = null
-const  action = {
-    type: C.ADD_DAY,
-    payload: {
-        "resort": "Heavenly",
-        "date": "2016-12-16",
-        "powder": true,
-        "backcountry": false
-    }
-}
-
-const  nextState = skiDay(state, action)
-
-console.log(`
-
-    initial state: ${state}
-    action: ${JSON.stringify(action)}
-    new state: ${JSON.stringify(nextState)}    
-    
-`)
-*/
-/*  ------ Lesson 2-2 ------
- import { goal } from './store/reducers'
-
- const state = 10
- const  action = {
- type: C.SET_GOAL,
- payload: 15
- }
-
- const  nextState = goal(state, action)
-
- console.log(`
-
- initial goal: ${state}
- action: ${JSON.stringify(action)}
- new goal: ${nextState}
-
- `)
-
-*/
-
-/*
- ------ Lesson 2-1 ------
-import { allSkiDays, goal } from './initialState.json'
-
-console.log(`
-    Ski Day Counter
-    ===============
-    The goal is ${goal} days
-    Initially there are ${allSkiDays.length} ski day in the state
-
-    Constants (actions)
-    -------------------
-    ${Object.keys(C).join('\n      ')}
-`)
- */
