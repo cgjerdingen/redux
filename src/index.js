@@ -1,5 +1,19 @@
-import C from './constants'
 import storeFactory from './store'
+import { addDay } from './actions'
+
+const store = storeFactory()
+
+store.dispatch(
+	addDay("Heavenly", "2016-12-22")
+)
+
+
+
+
+
+/*
+---- Lesson 3 Final
+
 
 const initialState = (localStorage['redux-store']) ?
     JSON.parse(localStorage['redux-store']) :
@@ -43,6 +57,9 @@ store.dispatch({
         "backcountry": true
     }
 })
+
+ */
+
 
 
 /* import appReducer from './store/reducers'
