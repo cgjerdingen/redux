@@ -6,12 +6,24 @@ import {
 	addError,
 	clearError,
 	changeSuggestions,
-	clearSuggestions
+	clearSuggestions,
+	randomGoals
 } from './actions'
 import expect from 'expect'
 
 
 const store = storeFactory()
+
+
+store.dispatch(
+    randomGoals()
+)
+
+store.dispatch(
+    randomGoals()
+)
+
+
 
 store.dispatch(
 	addError("something went wrong")
@@ -79,7 +91,9 @@ store.dispatch(
 )
 
 store.dispatch(
+
 	setGoal(55)
+
 )
 
 

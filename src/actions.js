@@ -63,3 +63,18 @@ export const clearSuggestions = () => {
         payload: []
     }
 }
+
+export const randomGoals = () => (dispatch, getState) => {
+
+    if (!getState().resortNames.fetching) {
+        dispatch({
+            type: C.FETCH_RESORT_NAMES
+        })
+
+        setTimeout(() => {
+            dispatch({
+                type: C.CANCEL_FETCHING
+            })
+        }), 1500
+    }
+}
