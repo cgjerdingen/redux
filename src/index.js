@@ -1,7 +1,74 @@
 import storeFactory from './store'
-import { addDay, removeDay, setGoal } from './actions'
+import {
+	addDay,
+	removeDay,
+	setGoal,
+	addError,
+	clearError,
+	changeSuggestions,
+	clearSuggestions
+} from './actions'
+import expect from 'expect'
+
 
 const store = storeFactory()
+
+store.dispatch(
+	addError("something went wrong")
+)
+
+expect(store.getState().errors)
+	.toEqual(["something went wrong"])
+
+console.log(`
+
+	addError() Action Creator Works!
+
+`)
+
+
+store.dispatch(
+    clearError(0)
+)
+
+expect(store.getState().errors)
+    .toEqual([])
+
+console.log(`
+
+	clearError() Action Creator Works!
+
+`)
+
+
+store.dispatch(
+    changeSuggestions(['One', 'Two'])
+)
+
+expect(store.getState().resortNames.suggestions)
+    .toEqual(['One', 'Two'])
+
+console.log(`
+
+	changeSuggestions() Action Creator Works!
+
+`)
+
+
+store.dispatch(
+    clearSuggestions()
+)
+
+expect(store.getState().resortNames.suggestions)
+    .toEqual([])
+
+console.log(`
+
+	clearSuggestions() Action Creator Works!
+
+`)
+
+
 
 store.dispatch(
 	addDay("Heavenly", "2016-12-22")

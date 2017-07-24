@@ -1,5 +1,6 @@
 import C from './constants'
 
+
 // sampling of creation methods for action functions...
 
 export function addDay(resort, date, powder=false, backcountry=false) {
@@ -28,5 +29,37 @@ export const setGoal = (goal) => {
     return {
         type: C.SET_GOAL,
         payload: goal
+    }
+}
+
+export const addError = (error) => {
+
+    return {
+        type: C.ADD_ERROR,
+        payload: error
+    }
+}
+
+export const clearError = (index) => {
+
+    return {
+        type: C.CLEAR_ERROR,
+        payload: index
+    }
+}
+
+export const changeSuggestions = (suggestions) => {
+
+    return {
+        type: C.CHANGE_SUGGESTIONS,
+        payload: suggestions
+    }
+}
+
+export const clearSuggestions = () => {
+
+    return {
+        type: C.CLEAR_SUGGESTIONS,
+        payload: []
     }
 }
