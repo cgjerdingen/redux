@@ -5,6 +5,7 @@ import {
 	setGoal,
 	addError,
 	clearError,
+	suggestResortNames,
 	changeSuggestions,
 	clearSuggestions,
 	randomGoals
@@ -13,6 +14,11 @@ import expect from 'expect'
 
 
 const store = storeFactory()
+
+store.dispatch(
+    suggestResortNames("hea")
+)
+
 
 
 store.dispatch(
@@ -53,34 +59,35 @@ console.log(`
 `)
 
 
-store.dispatch(
-    changeSuggestions(['One', 'Two'])
-)
+//store.dispatch(
+//    changeSuggestions(['One', 'Two'])
+//)
 
-expect(store.getState().resortNames.suggestions)
-    .toEqual(['One', 'Two'])
-
-console.log(`
-
-	changeSuggestions() Action Creator Works!
-
-`)
-
-
-store.dispatch(
-    clearSuggestions()
-)
-
-expect(store.getState().resortNames.suggestions)
-    .toEqual([])
-
-console.log(`
-
-	clearSuggestions() Action Creator Works!
-
-`)
+//expect(store.getState().resortNames.suggestions)
+//    .toEqual(['One', 'Two'])
+//
+//console.log(`
+//
+//	changeSuggestions() Action Creator Works!
+//
+//`)
 
 
+//store.dispatch(
+//    clearSuggestions()
+//)
+
+//expect(store.getState().resortNames.suggestions)
+//    .toEqual([])
+
+//console.log(`
+
+//	clearSuggestions() Action Creator Works!
+
+//`)
+
+
+window.store = store
 
 store.dispatch(
 	addDay("Heavenly", "2016-12-22")
